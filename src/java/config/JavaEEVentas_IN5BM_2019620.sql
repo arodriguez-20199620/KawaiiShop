@@ -49,7 +49,19 @@ Create table Producto(
     primary key PK_codigoProducto(codigoProducto)
 );
 
- 
+create table Compra(
+	codigoCompra int auto_increment not null,
+	codigoProducto int not null,
+    codigoCliente int not null,
+    cantidadProductos int not null,
+    fechaCompra datetime not null,
+    totalPagar double not null,
+    primary key PK_codigoCompra(codigoCompra),
+    constraint FK_Compra_Cliente foreign key (codigoCliente)
+        references Cliente(codigoCliente),
+	constraint FK_Compra_Producto foreign key (codigoProducto)
+        references Producto(codigoProducto)
+); 
 
 Create table Venta(
     codigoVenta int auto_increment not null,
@@ -65,8 +77,6 @@ Create table Venta(
      constraint FK_Venta_Empleado foreign key (codigoEmpleado)
         references Empleado(codigoEmpleado)   
 );
-
- 
 
 Create table DetalleVenta(
     codigoDetalleVenta int auto_increment not null,
@@ -110,7 +120,17 @@ insert into Producto (nombreProducto, precio, stock, estado) values('Mouse inhal
 insert into Producto (nombreProducto, precio, stock, estado) values('Laptop Dell Latitude 3480', 9850.00,5,'1');
 insert into Producto (nombreProducto, precio, stock, estado) values('Monitor Haier 32"', 1225.80,60,'1');
 
- 
+
+insert into Compra (codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar) Values (1,2,3,now(),500);
+
+ select
+	C.codigoCompra,
+    P.nombreProducto,  
+	P.precio,
+    C.fechaCompra
+	from Compra C 
+	left join Producto  P on P.codigoProducto = C.codigoProducto
+		where C.codigoCliente = 2 order by C.fechaCompra;
 
  
 

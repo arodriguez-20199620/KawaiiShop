@@ -139,7 +139,13 @@
                 </div>
             </div>
         </section>
-
+        <section>
+            <div class="container-fluid py-3 text-center bg-dark text-white">
+                <p><img src="img/Foto.jpg" alt="foto" height="400px"> <br>
+                    proyecto hecho en java ee para un proyecto sobre ventas todo esto gestionado en una base de datos usando mysql
+                </p>
+            </div>
+        </section>
         <footer class="bg-dark text-white py-3 text-center">
             <div class="container">
                 <p>&copy; 2023 Kawaii Shop. Todos los derechos reservados.</p>

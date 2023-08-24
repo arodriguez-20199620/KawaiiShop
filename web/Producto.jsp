@@ -46,11 +46,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Precio:</label>
-                                    <input type="text" value="${producto.getPrecio()}" name="txtPrecio" class="form-control" required>
+                                    <input type="" value="${producto.getPrecio()}" name="txtPrecio" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Stock:</label>
-                                    <input type="text" value="${producto.getStock()}" name="txtStock" class="form-control" required>
+                                    <input type="number" value="${producto.getStock()}" name="txtStock" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Estado:</label>

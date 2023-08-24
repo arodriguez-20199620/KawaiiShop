@@ -7,6 +7,7 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ import modelo.Empleado;
 import modelo.EmpleadoDAO;
 import modelo.Producto;
 import modelo.ProductoDAO;
+import modelo.Venta;
 
 public class Controlador extends HttpServlet {
 
@@ -28,7 +30,13 @@ public class Controlador extends HttpServlet {
     ProductoDAO productoDAO = new ProductoDAO();
     Cliente cliente = new Cliente();
     ClienteDAO clienteDAO = new ClienteDAO();
-
+    Venta venta = new Venta();
+    List<Venta> lista = new ArrayList<>();
+    int item;
+    int codPro, cantida;
+    String descripcion;
+    Double precio, subTotal;
+    Double totalPagar;
     int codEmpleado;
     int codProducto;
     int codCliente;
@@ -153,6 +161,22 @@ public class Controlador extends HttpServlet {
                     break;
             }
         } else if (menu.equals("RegistrarVenta")) {
+            switch (accion) {
+                case "BuscarCliente":
+                    String dpi = request.getParameter("txtCodigoCliente");
+                    cliente.setDPICliente(dpi);
+                    cliente = clienteDAO.buscar(dpi);
+                    request.setAttribute("cliente", cliente);
+
+                    break;
+                case "BuscarProducto":
+                    codProducto = Integer.parseInt(request.getParameter("txtCodigoProducto"));
+                    producto.setCodigoProducto(codProducto);
+                    producto = productoDAO.listarCodigoProducto(codProducto);
+                    request.setAttribute("producto", producto);
+                    request.getRequestDispatcher("Controlador?menu=RegistrarVenta&accion=BuscarCliente").forward(request, response);
+                    break;
+            }
             request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
         } else if (menu.equals("Home")) {
             request.getRequestDispatcher("Home.jsp").forward(request, response);

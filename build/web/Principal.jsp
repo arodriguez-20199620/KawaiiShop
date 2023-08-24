@@ -40,7 +40,7 @@
                             <a class="nav-link mx-2" href="Controlador?menu=Cliente&accion=listar" target="myFrame">Clientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mx-2" href="Controlador?menu=RegistrarVenta" target="myFrame">Registrar Venta</a>
+                            <a class="nav-link mx-2" href="Controlador?menu=RegistrarVenta&accion=default" target="myFrame">Registrar Venta</a>
                         </li>   
                         <li class="nav-item dropdown">
                             <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -54,6 +54,26 @@ public class ClienteDAO {
         return resp;
     }
 
+    public Cliente buscar(String dpi) {
+        Cliente cl = new Cliente();
+        String sql = "Select * from Cliente where DPICliente = " + dpi;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery(sql);
+            while (rs.next()) {
+                cl.setCodigoCliente(rs.getInt(1));
+                cl.setDPICliente(rs.getString(2));
+                cl.setNombresCliente(rs.getString(3));
+                cl.setDireccionCliente(rs.getString(4));
+                cl.setEstado(rs.getString(5));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cl;
+    }
+
     public Cliente listarCodigoCliente(int id) {
         Cliente cl = new Cliente();
         String sql = "Select * from Cliente where codigoCliente = " + id;
@@ -94,7 +114,7 @@ public class ClienteDAO {
     public void eliminar(int id) {
         String sql = "delete from Cliente where codigoCliente =" + id;
         try {
-            con = cn.Conexion();
+            con = cn.Conexion();    
             ps = con.prepareStatement(sql);
             ps.execute();
         } catch (Exception e) {

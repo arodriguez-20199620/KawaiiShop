@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/User/Documentos/NetBeansProjects/Ventas2019130/src/java/controlador/Controlador.java</file>
-            <file>file:/D:/User/Documentos/NetBeansProjects/Ventas2019130/src/java/modelo/ClienteDAO.java</file>
-            <file>file:/D:/User/Documentos/NetBeansProjects/Ventas2019130/web/Clientes.jsp</file>
-            <file>file:/D:/User/Documentos/NetBeansProjects/Ventas2019130/web/Empleado.jsp</file>
-            <file>file:/D:/User/Documentos/NetBeansProjects/Ventas2019130/src/java/modelo/EmpleadoDAO.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KawaiiShop/web/Producto.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KawaiiShop/src/java/controlador/Controlador.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KawaiiShop/src/java/modelo/ProductoDAO.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KawaiiShop/web/RegistrarVenta.jsp</file>
         </group>
     </open-files>
 </project-private>

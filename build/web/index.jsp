@@ -50,7 +50,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="text-center">
-                                    ¿No tienes una cuenta? <a href="register.html" >Crea una</a>
+                                    ¿No tienes una cuenta? <a href="register.html" >registro</a>
                                 </div>
                             </div>
                         </div>
