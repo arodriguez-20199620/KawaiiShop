@@ -15,14 +15,15 @@ Create database JavaEEVentas_IN5BM_2019620;
 
 Use JavaEEVentas_IN5BM_2019620;
 
- 
-
 Create table Cliente(
     codigoCliente int not null auto_increment,
     DPICliente varchar(15) not null,
+	fotoPerfil longblob,
     nombresCliente varchar(200) not null,
     direccionCliente varchar(150) not null,
     estado varchar(1) not null,
+	usuario varchar(15) not null,
+	correo varchar(50),
     primary key PK_codigoCliente(codigoCliente)
 );
 
@@ -31,10 +32,13 @@ Create table Cliente(
 Create table Empleado(
     codigoEmpleado int auto_increment not null,
     DPIEmpleado varchar(15) not null,
+	fotoPerfil longblob,
     nombresEmpleado varchar(200) not null,
     telefonoEmpleado varchar(10) not null,
-    estado varchar(1) not null,
+    estado varchar(20) not null,
     usuario varchar(15) not null,
+    correo varchar(50),
+    rol varchar(20) not null,
     primary key PK_codigoEmpleado(codigoEmpleado)
 );
 
@@ -42,6 +46,7 @@ Create table Empleado(
 
 Create table Producto(
     codigoProducto int auto_increment not null,
+    fotoProduct longblob,
     nombreProducto varchar(100) not null,
     precio double not null,
     stock int not null,
@@ -61,7 +66,7 @@ create table Compra(
         references Cliente(codigoCliente),
 	constraint FK_Compra_Producto foreign key (codigoProducto)
         references Producto(codigoProducto)
-); 
+);
 
 Create table Venta(
     codigoVenta int auto_increment not null,
@@ -93,21 +98,21 @@ Create table DetalleVenta(
 
  
 
-insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado) values ('1579420230101', 'Pedro Armas', 'Mixco, Guatemala', '1');
-insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado) values ('1579123450108', 'Luis Olmedo', 'Guatemala, Guatemala', '1');
-insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado) values ('1579987450102', 'Jorge Tala', 'Sacatepequez, Guatemala', '1');
-insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado) values ('1579257410107', 'Mario Rodriguez', 'Villa Nueva, Guatemala', '1');
+insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579420230101', 'Pedro Armas', 'Mixco, Guatemala', '1', 'parmas', 'parmas@kinal.edu.gt');
+insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579123450108', 'Luis Olmedo', 'Guatemala, Guatemala', '1', 'lolmedo', 'lolmedo@kinal.edu.gt');
+insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579987450102', 'Jorge Tala', 'Sacatepequez, Guatemala', '1', 'jtala', 'jtala@kinal.edu.gt');
+insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579257410107', 'Mario Rodriguez', 'Villa Nueva, Guatemala', '1', 'mrodriguez', 'mrodriguez@kinal.edu.gt');
 
  
 
 select * from Cliente;
 
  
-
-insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario) values ('123', 'Angel Rodriguez', '54879632','1', 'arodriguez');
-insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario) values ('1579457820107', 'Rony Godinez', '43210509','1', 'rgod15');
-insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario) values ('1579558740106', 'Palermo Suarez', '24587963','1', 'psuarez25');
-insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario) values ('1579663520108', 'Luisa Aragon', '36251478','1', 'laragon40');
+insert into Empleado(DPIEmpleado, fotoPerfil, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values('1','','2','3','4','5','6','7');
+insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('123', 'Angel Rodriguez', '54879632','1', 'arodriguez', 'arodriguez-2019620@kinal.org.gt', 'admin');
+insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('1579457820107', 'Anderson Sanchez', '43210509','1', 'asanchez', 'asanchez-2019130@kinal.org.gt', 'miembro');
+insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('1579558740106', 'Diego Siney', '24587963','1', 'dsiney', 'dsiney-2021664@kinal.org.gt', 'miembro');
+insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('1579663520108', 'Luisa Aragon', '36251478','1', 'laragon40', 'laragon40-2023056@kinal.org.gt', 'miembro');
 
  
 
@@ -131,7 +136,6 @@ insert into Compra (codigoProducto, codigoCliente, cantidadProductos, fechaCompr
 	from Compra C 
 	left join Producto  P on P.codigoProducto = C.codigoProducto
 		where C.codigoCliente = 2 order by C.fechaCompra;
-
  
 
 -- delete from Producto where codigoProducto = 1;

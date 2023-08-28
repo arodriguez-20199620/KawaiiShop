@@ -8,6 +8,22 @@
         <servlet-name>Validar</servlet-name>
         <servlet-class>controlador.Validar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorIMG</servlet-name>
+        <servlet-class>controlador.ControladorIMG</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControladorRegister</servlet-name>
+        <servlet-class>controlador.ControladorRegister</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControladorIMGProd</servlet-name>
+        <servlet-class>controlador.ControladorIMGProd</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControladorIMGCli</servlet-name>
+        <servlet-class>controlador.ControladorIMGCli</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Controlador</servlet-name>
         <url-pattern>/Controlador</url-pattern>
@@ -15,6 +31,22 @@
     <servlet-mapping>
         <servlet-name>Validar</servlet-name>
         <url-pattern>/Validar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorIMG</servlet-name>
+        <url-pattern>/ControladorIMG</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorRegister</servlet-name>
+        <url-pattern>/ControladorRegister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorIMGProd</servlet-name>
+        <url-pattern>/ControladorIMGProd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorIMGCli</servlet-name>
+        <url-pattern>/ControladorIMGCli</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

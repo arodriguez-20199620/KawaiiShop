@@ -6,13 +6,16 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.ClienteDAO;
@@ -22,6 +25,7 @@ import modelo.Producto;
 import modelo.ProductoDAO;
 import modelo.Venta;
 
+@MultipartConfig
 public class Controlador extends HttpServlet {
 
     Empleado empleado = new Empleado();
@@ -56,6 +60,8 @@ public class Controlador extends HttpServlet {
         String accion = request.getParameter("accion");
         if (menu.equals("Principal")) {
             request.getRequestDispatcher("Principal.jsp").forward(request, response);
+        } else if (menu.equals("PrincipalCliente")) {
+            request.getRequestDispatcher("PrincipalCliente.jsp").forward(request, response);
         } else if (menu.equals("Empleado")) {
             switch (accion) {
                 case "listar":
@@ -69,11 +75,18 @@ public class Controlador extends HttpServlet {
                     String telefono = request.getParameter("txtTelefono");
                     String est = request.getParameter("txtEstado");
                     String user = request.getParameter("txtUsuario");
+                    String correo = request.getParameter("txtCorreo");
+                    String rol = request.getParameter("cbRoles");
+                    Part part = request.getPart("foto");
+                    InputStream foto = part.getInputStream();
                     empleado.setDPIEmpleado(DPI);
+                    empleado.setFotoPerfil(foto);
                     empleado.setNombresEmpleado(nombres);
                     empleado.setTelefonoEmpleado(telefono);
                     empleado.setEstado(est);
                     empleado.setUsuario(user);
+                    empleado.setCorreo(correo);
+                    empleado.setRol(rol);
                     empleadoDAO.agregar(empleado);
                     request.getRequestDispatcher("Controlador?menu=Empleado&accion=listar").forward(request, response);
                     break;
@@ -107,6 +120,9 @@ public class Controlador extends HttpServlet {
                     Double precio = Double.parseDouble(request.getParameter("txtPrecio"));
                     int stock = Integer.parseInt(request.getParameter("txtStock"));
                     String estado = request.getParameter("txtEstado");
+                    Part part = request.getPart("foto");
+                    InputStream foto = part.getInputStream();
+                    producto.setFotoProducto(foto);
                     producto.setNombreProducto(nombreProducto);
                     producto.setPrecio(precio);
                     producto.setStock(stock);
@@ -180,6 +196,16 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
         } else if (menu.equals("Home")) {
             request.getRequestDispatcher("Home.jsp").forward(request, response);
+        } else if (menu.equals("Catalogo")) {
+            switch (accion) {
+                case "listar":
+                    List listaProducto = productoDAO.listar();
+                    request.setAttribute("productos", listaProducto);
+                    request.getRequestDispatcher("Catalogo.jsp").forward(request, response);
+
+                    break;
+            }
+
         }
     }
 

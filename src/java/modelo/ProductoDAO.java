@@ -1,11 +1,16 @@
 package modelo;
 
 import config.Conexion;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 public class ProductoDAO {
 
@@ -25,10 +30,11 @@ public class ProductoDAO {
             while (rs.next()) {
                 Producto pr = new Producto();
                 pr.setCodigoProducto(rs.getInt(1));
-                pr.setNombreProducto(rs.getString(2));
-                pr.setPrecio(rs.getDouble(3));
-                pr.setStock(rs.getInt(4));
-                pr.setEstado(rs.getString(5));
+                pr.setFotoProducto(rs.getBinaryStream(2));
+                pr.setNombreProducto(rs.getString(3));
+                pr.setPrecio(rs.getDouble(4));
+                pr.setStock(rs.getInt(5));
+                pr.setEstado(rs.getString(6));
                 listaProducto.add(pr);
             }
 
@@ -39,14 +45,15 @@ public class ProductoDAO {
     }
 
     public int agregar(Producto pro) {
-        String sql = "insert into Producto (nombreProducto, precio, stock, estado) values(?,?,?,?)";
+        String sql = "insert into Producto (fotoProducto, nombreProducto, precio, stock, estado) values(?,?,?,?,?)";
         try {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
-            ps.setString(1, pro.getNombreProducto());
-            ps.setDouble(2, pro.getPrecio());
-            ps.setInt(3, pro.getStock());
-            ps.setString(4, pro.getEstado());
+            ps.setBlob(1, pro.getFotoProducto());
+            ps.setString(2, pro.getNombreProducto());
+            ps.setDouble(3, pro.getPrecio());
+            ps.setInt(4, pro.getStock());
+            ps.setString(5, pro.getEstado());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,6 +107,33 @@ public class ProductoDAO {
             ps.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void listarImg(int id, HttpServletResponse response) {
+        String sql = "Select * from Producto where codigoProducto =" + id;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        response.setContentType("image/*");
+        try {
+
+            outputStream = response.getOutputStream();
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                inputStream = rs.getBinaryStream("fotoProducto");
+            }
+            bufferedInputStream = new BufferedInputStream(inputStream);
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
+            int i = 0;
+            while ((i = bufferedInputStream.read()) != -1) {
+                bufferedOutputStream.write(i);
+            }
+        } catch (Exception e) {
         }
     }
 }

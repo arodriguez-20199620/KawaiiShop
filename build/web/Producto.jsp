@@ -34,12 +34,16 @@
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form action="Controlador?menu=Producto" method="POST" autocomplete="off">
+                        <form action="Controlador?menu=Producto" method="POST" enctype="multipart/form-data" autocomplete="off">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar producto</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Foto:</label>
+                                    <input type="file" value="${producto.getNombreProducto()}" name="foto" class="form-control" required> 
+                                </div>
                                 <div class="form-group">
                                     <label>Nombre:</label>
                                     <input type="text" value="${producto.getNombreProducto()}" name="txtNombreProducto" class="form-control" required> 
@@ -70,18 +74,20 @@
                 <table class="table table-striped text-center table-hover">
                     <thead>
                         <tr>
-                            <td class="bg-dark text-white">CODIGO</td>
-                            <td class="bg-dark text-white">NOMBRE</td>
-                            <td class="bg-dark text-white">PRECIO</td>
-                            <td class="bg-dark text-white">STOCK</td>
-                            <td class="bg-dark text-white">ESTADO</td>
-                            <td class="bg-dark text-white">ACCIONES</td>
+                            <td class="bg-dark text-white">Codigo</td>
+                            <td class="bg-dark text-white">Foto</td>
+                            <td class="bg-dark text-white">Nombre</td>
+                            <td class="bg-dark text-white">Precio</td>
+                            <td class="bg-dark text-white">Stock</td>
+                            <td class="bg-dark text-white">Estado</td>
+                            <td class="bg-dark text-white">Accciones</td>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="producto" items="${productos}">    
                             <tr>
                                 <td>${producto.getCodigoProducto()}</td>
+                                <td><img src="ControladorIMGProd?codigoProducto=${producto.getCodigoProducto()}" height="50"></td>
                                 <td>${producto.getNombreProducto()}</td>
                                 <td>${producto.getPrecio()}</td>
                                 <td>${producto.getStock()}</td>
@@ -96,12 +102,16 @@
                                     <div class="modal fade" id="editarModal${producto.getCodigoProducto()}" tabindex="-1" aria-labelledby="editarModalLabel${producto.getCodigoProducto()}" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="Controlador?menu=Producto&codigoProducto=${producto.getCodigoProducto()}" method="POST" autocomplete="off">
+                                                <form action="Controlador?menu=Producto&codigoProducto=${producto.getCodigoProducto()}" method="POST" enctype="multipart/form-data" autocomplete="off">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label>Foto:</label>
+                                                            <input type="file" value="${producto.getNombreProducto()}" name="foto" class="form-control" required> 
+                                                        </div>
                                                         <div class="form-group">
                                                             <label>Nombre:</label>
                                                             <input type="text" value="${producto.getNombreProducto()}" name="txtNombreProducto" class="form-control" required> 

@@ -1,26 +1,32 @@
 package modelo;
 
+import java.io.InputStream;
+
 public class Empleado {
 
     private int codigoEmpleado;
-    private String imagenPerfil;
     private String DPIEmpleado;
+    private InputStream fotoPerfil;
     private String nombresEmpleado;
     private String telefonoEmpleado;
     private String estado;
     private String usuario;
+    private String correo;
+    private String rol;
 
     public Empleado() {
     }
 
-    public Empleado(int codigoEmpleado, String imagenPerfil, String DPIEmpleado, String nombresEmpleado, String telefonoEmpleado, String estado, String usuario) {
+    public Empleado(int codigoEmpleado, String DPIEmpleado, InputStream fotoPerfil, String nombresEmpleado, String telefonoEmpleado, String estado, String usuario, String correo, String rol) {
         this.codigoEmpleado = codigoEmpleado;
-        this.imagenPerfil = imagenPerfil;
         this.DPIEmpleado = DPIEmpleado;
+        this.fotoPerfil = fotoPerfil;
         this.nombresEmpleado = nombresEmpleado;
         this.telefonoEmpleado = telefonoEmpleado;
         this.estado = estado;
         this.usuario = usuario;
+        this.correo = correo;
+        this.rol = rol;
     }
 
     public int getCodigoEmpleado() {
@@ -31,20 +37,20 @@ public class Empleado {
         this.codigoEmpleado = codigoEmpleado;
     }
 
-    public String getImagenPerfil() {
-        return imagenPerfil;
-    }
-
-    public void setImagenPerfil(String imagenPerfil) {
-        this.imagenPerfil = imagenPerfil;
-    }
-
     public String getDPIEmpleado() {
         return DPIEmpleado;
     }
 
     public void setDPIEmpleado(String DPIEmpleado) {
         this.DPIEmpleado = DPIEmpleado;
+    }
+
+    public InputStream getFotoPerfil() {
+        return fotoPerfil;
+    }
+
+    public void setFotoPerfil(InputStream fotoPerfil) {
+        this.fotoPerfil = fotoPerfil;
     }
 
     public String getNombresEmpleado() {
@@ -77,6 +83,22 @@ public class Empleado {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
 }

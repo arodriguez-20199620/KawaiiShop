@@ -6,18 +6,26 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import modelo.Cliente;
+import modelo.ClienteDAO;
 import modelo.Empleado;
 import modelo.EmpleadoDAO;
 
+@MultipartConfig
 public class Validar extends HttpServlet {
 
-    EmpleadoDAO empleadoDAO = new EmpleadoDAO();
     Empleado empleado = new Empleado();
+    EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+    Cliente cliente = new Cliente();
+    ClienteDAO clienteDAO = new ClienteDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +44,7 @@ public class Validar extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Validar</title>");            
+            out.println("<title>Servlet Validar</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Validar at " + request.getContextPath() + "</h1>");
@@ -57,7 +65,10 @@ public class Validar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String accion = request.getParameter("accion");
+        if (accion.equals("register")) {
+            request.getRequestDispatcher("Register.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -78,22 +89,50 @@ public class Validar extends HttpServlet {
             // capturar el usuario y la contraseña
             String user = request.getParameter("txtUser");
             String pass = request.getParameter("txtPass");
-            empleado = empleadoDAO.validar(user, pass);
-            if (empleado.getUsuario() != null) {
-                request.setAttribute("usuario", empleado);
-                request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
-            } else {
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+
+            if (user.contains("@kinal.edu.gt")) {
+                cliente = clienteDAO.validar(user, pass);
+                if (cliente.getCorreo() != null) {
+                    request.setAttribute("usuario", cliente);
+                    request.getRequestDispatcher("Controlador?menu=PrincipalCliente").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
+            } else if (user.contains("@kinal.org.gt")) {
+                empleado = empleadoDAO.validar(user, pass);
+                if (empleado.getCorreo() != null) {
+                    request.setAttribute("usuario", empleado);
+                    request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
             }
+        } else if (accion.equalsIgnoreCase("Crear")) {
+            String DPI = request.getParameter("txtDPI");
+            Part part = request.getPart("foto");
+            InputStream inputStream = part.getInputStream();
+            String nombres = request.getParameter("txtNombres");
+            String direccion = request.getParameter("txtDireccion");
+            String estado = request.getParameter("txtEstado");
+            String usuario = request.getParameter("txtUsuario");
+            String correo = request.getParameter("txtCorreo");
+            cliente.setDPICliente(DPI);
+            cliente.setFotoPerfil(inputStream);
+            cliente.setNombresCliente(nombres);
+            cliente.setDireccionCliente(direccion);
+            cliente.setEstado(estado);
+            cliente.setUsuario(usuario);
+            cliente.setCorreo(correo);
+            clienteDAO.agregar(cliente);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("index.jsp").forward(request, response);
-        
-    }
-    
-}
+        }
 
-@Override
-        public String getServletInfo() {
+    }
+
+    @Override
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

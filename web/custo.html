@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Botón Personalizado para Foto de Perfil</title>
+    <script>
+      function abrirDialogoArchivo() {
+        var inputFile = document.getElementById("inputFile");
+        inputFile.click();
+      }
+    </script>
+    <link rel="stylesheet" href="scss/style.css" />
+  </head>
+  <body>
+    <form>
+      <button class="btn btn-danger" onclick="abrirDialogoArchivo()">
+        Poner Foto de Perfil
+      </button>
+      <input type="file" id="inputFile" name="archivo" style="display: none" />
+      <input type="submit" value="Subir" />
+    </form>
+  </body>
+</html>

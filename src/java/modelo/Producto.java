@@ -5,8 +5,12 @@
  */
 package modelo;
 
+import java.io.InputStream;
+
 public class Producto {
+
     private int codigoProducto;
+    private InputStream fotoProducto;
     private String nombreProducto;
     private Double precio;
     private int stock;
@@ -15,8 +19,9 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int codigoProducto, String nombreProducto, Double precio, int stock, String estado) {
+    public Producto(int codigoProducto, InputStream fotoProducto, String nombreProducto, Double precio, int stock, String estado) {
         this.codigoProducto = codigoProducto;
+        this.fotoProducto = fotoProducto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.stock = stock;
@@ -29,6 +34,14 @@ public class Producto {
 
     public void setCodigoProducto(int codigoProducto) {
         this.codigoProducto = codigoProducto;
+    }
+
+    public InputStream getFotoProducto() {
+        return fotoProducto;
+    }
+
+    public void setFotoProducto(InputStream fotoProducto) {
+        this.fotoProducto = fotoProducto;
     }
 
     public String getNombreProducto() {
@@ -62,6 +75,5 @@ public class Producto {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
+
 }
