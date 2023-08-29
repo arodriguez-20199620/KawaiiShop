@@ -46,8 +46,9 @@ Create table Empleado(
 
 Create table Producto(
     codigoProducto int auto_increment not null,
-    fotoProduct longblob,
+    fotoProducto longblob,
     nombreProducto varchar(100) not null,
+    descripcion varchar(250) not null,
     precio double not null,
     stock int not null,
     estado varchar(1) not null,
@@ -63,9 +64,9 @@ create table Compra(
     totalPagar double not null,
     primary key PK_codigoCompra(codigoCompra),
     constraint FK_Compra_Cliente foreign key (codigoCliente)
-        references Cliente(codigoCliente),
+        references Cliente(codigoCliente)  on delete cascade,
 	constraint FK_Compra_Producto foreign key (codigoProducto)
-        references Producto(codigoProducto)
+        references Producto(codigoProducto)  on delete cascade
 );
 
 Create table Venta(
@@ -78,9 +79,9 @@ Create table Venta(
     codigoEmpleado int not null,
     primary key PK_codigoVenta(codigoVenta),
     constraint FK_Venta_Cliente foreign key (codigoCliente)
-        references Cliente(codigoCliente),
+        references Cliente(codigoCliente)  on delete cascade,
      constraint FK_Venta_Empleado foreign key (codigoEmpleado)
-        references Empleado(codigoEmpleado)   
+        references Empleado(codigoEmpleado) on delete cascade
 );
 
 Create table DetalleVenta(
@@ -91,42 +92,39 @@ Create table DetalleVenta(
     codigoVenta int not null,
     primary key PK_codigoDetalleVenta(codigoDetalleVenta),
     constraint FK_DetalleVenta_Producto foreign key (codigoProducto)
-        references Producto(codigoProducto),
+        references Producto(codigoProducto)  on delete cascade,
     constraint FK_DetalleVenta_Venta foreign key (codigoVenta)
-        references Venta(codigoVenta)
+        references Venta(codigoVenta)  on delete cascade
 );
 
  
 
-insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579420230101', 'Pedro Armas', 'Mixco, Guatemala', '1', 'parmas', 'parmas@kinal.edu.gt');
-insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579123450108', 'Luis Olmedo', 'Guatemala, Guatemala', '1', 'lolmedo', 'lolmedo@kinal.edu.gt');
-insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579987450102', 'Jorge Tala', 'Sacatepequez, Guatemala', '1', 'jtala', 'jtala@kinal.edu.gt');
-insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579257410107', 'Mario Rodriguez', 'Villa Nueva, Guatemala', '1', 'mrodriguez', 'mrodriguez@kinal.edu.gt');
-
- 
+-- insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579420230101', 'Pedro Armas', 'Mixco, Guatemala', '1', 'parmas', 'parmas@kinal.edu.gt');
+-- insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579123450108', 'Luis Olmedo', 'Guatemala, Guatemala', '1', 'lolmedo', 'lolmedo@kinal.edu.gt');
+-- insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579987450102', 'Jorge Tala', 'Sacatepequez, Guatemala', '1', 'jtala', 'jtala@kinal.edu.gt');
+-- insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579257410107', 'Mario Rodriguez', 'Villa Nueva, Guatemala', '1', 'mrodriguez', 'mrodriguez@kinal.edu.gt');
 
 select * from Cliente;
 
  
-insert into Empleado(DPIEmpleado, fotoPerfil, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values('1','','2','3','4','5','6','7');
-insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('123', 'Angel Rodriguez', '54879632','1', 'arodriguez', 'arodriguez-2019620@kinal.org.gt', 'admin');
-insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('1579457820107', 'Anderson Sanchez', '43210509','1', 'asanchez', 'asanchez-2019130@kinal.org.gt', 'miembro');
-insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('1579558740106', 'Diego Siney', '24587963','1', 'dsiney', 'dsiney-2021664@kinal.org.gt', 'miembro');
-insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('1579663520108', 'Luisa Aragon', '36251478','1', 'laragon40', 'laragon40-2023056@kinal.org.gt', 'miembro');
+-- insert into Empleado(DPIEmpleado, fotoPerfil, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values('1','','2','3','4','5','6','7');
+-- insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('123', 'Angel Rodriguez', '54879632','1', 'arodriguez', 'arodriguez-2019620@kinal.org.gt', 'admin');
+-- insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('1579457820107', 'Anderson Sanchez', '43210509','1', 'asanchez', 'asanchez-2019130@kinal.org.gt', 'miembro');
+-- insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('1579558740106', 'Diego Siney', '24587963','1', 'dsiney', 'dsiney-2021664@kinal.org.gt', 'miembro');
+-- insert into Empleado (DPIEmpleado, nombresEmpleado, telefonoEmpleado, estado, usuario, correo, rol) values ('1579663520108', 'Luisa Aragon', '36251478','1', 'laragon40', 'laragon40-2023056@kinal.org.gt', 'miembro');
 
- 
 
 select * from Empleado;
 
  
 
-insert into Producto (nombreProducto, precio, stock, estado) values('Teclado Durabrand', 105.00,25,'1');
-insert into Producto (nombreProducto, precio, stock, estado) values('Mouse inhalambrico Microfost', 74.50,15,'1');
-insert into Producto (nombreProducto, precio, stock, estado) values('Laptop Dell Latitude 3480', 9850.00,5,'1');
-insert into Producto (nombreProducto, precio, stock, estado) values('Monitor Haier 32"', 1225.80,60,'1');
+-- insert into Producto (nombreProducto, precio, stock, estado) values('Teclado Durabrand', 105.00,25,'1');
+-- insert into Producto (nombreProducto, precio, stock, estado) values('Mouse inhalambrico Microfost', 74.50,15,'1');
+-- insert into Producto (nombreProducto, precio, stock, estado) values('Laptop Dell Latitude 3480', 9850.00,5,'1');
+-- insert into Producto (nombreProducto, precio, stock, estado) values('Monitor Haier 32"', 1225.80,60,'1');
 
 
-insert into Compra (codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar) Values (1,2,3,now(),500);
+-- insert into Compra (codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar) Values (1,2,3,now(),500);
 
  select
 	C.codigoCompra,
@@ -147,3 +145,6 @@ select * from Cliente;
 
 select * from Empleado where usuario = 'arodriguez' and DPIEmpleado = '123';
 
+update Empleado
+	set correo = 'arodriguez@kinal.org.gt'
+	where codigoEmpleado = 6;

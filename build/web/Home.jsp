@@ -142,7 +142,7 @@
         <section>
             <div class="container-fluid py-3 text-center bg-dark text-white">
                 <p><img src="img/Foto.jpg" alt="foto" height="400px"> <br>
-                    proyecto hecho en java ee para un proyecto sobre ventas todo esto gestionado en una base de datos usando mysql
+                    El objetivo de este proyecto es desarrollar una aplicación web que permita gestionar las ventas de una empresa. La aplicación está hecha en Java EE. La aplicación se conecta a una base de datos MySQL, donde se almacenan los datos de los clientes, los productos, los pedidos y las facturas. La aplicación ofrece una interfaz gráfica sencilla y funcional, que permite realizar las operaciones básicas de gestión de ventas, como registrar clientes, agregar productos al carrito, generar pedidos y facturas, consultar el historial de ventas, etc. El proyecto se ha realizado siguiendo las buenas prácticas de programación y los principios de diseño orientado a objetos.
                 </p>
             </div>
         </section>

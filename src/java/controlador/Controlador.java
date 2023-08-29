@@ -45,6 +45,9 @@ public class Controlador extends HttpServlet {
     int codProducto;
     int codCliente;
 
+    Part part;
+    InputStream foto;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -77,8 +80,8 @@ public class Controlador extends HttpServlet {
                     String user = request.getParameter("txtUsuario");
                     String correo = request.getParameter("txtCorreo");
                     String rol = request.getParameter("cbRoles");
-                    Part part = request.getPart("foto");
-                    InputStream foto = part.getInputStream();
+                    part = request.getPart("foto");
+                    foto = part.getInputStream();
                     empleado.setDPIEmpleado(DPI);
                     empleado.setFotoPerfil(foto);
                     empleado.setNombresEmpleado(nombres);
@@ -91,12 +94,17 @@ public class Controlador extends HttpServlet {
                     request.getRequestDispatcher("Controlador?menu=Empleado&accion=listar").forward(request, response);
                     break;
                 case "Actualizar":
+                    part = request.getPart("foto");
+                    foto = part.getInputStream();
                     empleado.setCodigoEmpleado(Integer.parseInt(request.getParameter("codigoEmpleado")));
+                    empleado.setFotoPerfil(foto);
                     empleado.setDPIEmpleado(request.getParameter("txtDPIEmpleado"));
                     empleado.setNombresEmpleado(request.getParameter("txtNombreEmpleado"));
                     empleado.setTelefonoEmpleado(request.getParameter("txtTelefono"));
                     empleado.setEstado(request.getParameter("txtEstado"));
                     empleado.setUsuario(request.getParameter("txtUsuario"));
+                    empleado.setCorreo(request.getParameter("txtCorreo"));
+                    empleado.setRol(request.getParameter("cbRoles"));
                     empleadoDAO.actualizar(empleado);
                     request.getRequestDispatcher("Controlador?menu=Empleado&accion=listar").forward(request, response);
                     break;
@@ -117,13 +125,15 @@ public class Controlador extends HttpServlet {
                     break;
                 case "Agregar":
                     String nombreProducto = request.getParameter("txtNombreProducto");
+                    String descripcion = request.getParameter("txtDescripcion");
                     Double precio = Double.parseDouble(request.getParameter("txtPrecio"));
                     int stock = Integer.parseInt(request.getParameter("txtStock"));
                     String estado = request.getParameter("txtEstado");
-                    Part part = request.getPart("foto");
-                    InputStream foto = part.getInputStream();
+                    part = request.getPart("foto");
+                    foto = part.getInputStream();
                     producto.setFotoProducto(foto);
                     producto.setNombreProducto(nombreProducto);
+                    producto.setDescripcion(descripcion);
                     producto.setPrecio(precio);
                     producto.setStock(stock);
                     producto.setEstado(estado);
@@ -132,7 +142,11 @@ public class Controlador extends HttpServlet {
                     break;
                 case "Actualizar":
                     producto.setCodigoProducto(Integer.parseInt(request.getParameter("codigoProducto")));
+                    part = request.getPart("foto");
+                    foto = part.getInputStream();
+                    producto.setFotoProducto(foto);
                     producto.setNombreProducto(request.getParameter("txtNombreProducto"));
+                    producto.setDescripcion(request.getParameter("txtDescripcion"));
                     producto.setPrecio(Double.parseDouble(request.getParameter("txtPrecio")));
                     producto.setStock(Integer.parseInt(request.getParameter("txtStock")));
                     producto.setEstado(request.getParameter("txtEstado"));
@@ -154,19 +168,35 @@ public class Controlador extends HttpServlet {
                     request.getRequestDispatcher("Clientes.jsp").forward(request, response);
                     break;
                 case "Agregar":
-                    cliente.setDPICliente(request.getParameter("txtDPICliente"));
-                    cliente.setNombresCliente(request.getParameter("txtNombreCliente"));
-                    cliente.setDireccionCliente(request.getParameter("txtDireccionCliente"));
-                    cliente.setEstado(request.getParameter("txtEstado"));
+                    String DPI = request.getParameter("txtDPICliente");
+                    part = request.getPart("foto");
+                    foto = part.getInputStream();
+                    String nombres = request.getParameter("txtNombreCliente");
+                    String direccion = request.getParameter("txtDireccionCliente");
+                    String estado = request.getParameter("txtEstado");
+                    String usuario = request.getParameter("txtUsuario");
+                    String correo = request.getParameter("txtCorreo");
+                    cliente.setDPICliente(DPI);
+                    cliente.setFotoPerfil(foto);
+                    cliente.setNombresCliente(nombres);
+                    cliente.setDireccionCliente(direccion);
+                    cliente.setEstado(estado);
+                    cliente.setUsuario(usuario);
+                    cliente.setCorreo(correo);
                     clienteDAO.agregar(cliente);
                     request.getRequestDispatcher("Controlador?menu=Cliente&accion=listar").forward(request, response);
                     break;
                 case "Actualizar":
                     cliente.setCodigoCliente(Integer.parseInt(request.getParameter("codigoCliente")));
                     cliente.setDPICliente(request.getParameter("txtDPICliente"));
+                    part = request.getPart("foto");
+                    foto = part.getInputStream();
+                    cliente.setFotoPerfil(foto);
                     cliente.setNombresCliente(request.getParameter("txtNombreCliente"));
                     cliente.setDireccionCliente(request.getParameter("txtDireccionCliente"));
                     cliente.setEstado(request.getParameter("txtEstado"));
+                    cliente.setUsuario(request.getParameter("txtUsuario"));
+                    cliente.setCorreo(request.getParameter("txtCorreo"));
                     clienteDAO.actualizar(cliente);
                     request.getRequestDispatcher("Controlador?menu=Cliente&accion=listar").forward(request, response);
                     break;
@@ -206,6 +236,8 @@ public class Controlador extends HttpServlet {
                     break;
             }
 
+        } else if (menu.equals("Carrito")) {
+            request.getRequestDispatcher("Carrito.jsp").forward(request, response);
         }
     }
 

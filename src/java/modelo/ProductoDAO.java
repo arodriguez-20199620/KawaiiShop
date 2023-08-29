@@ -32,9 +32,10 @@ public class ProductoDAO {
                 pr.setCodigoProducto(rs.getInt(1));
                 pr.setFotoProducto(rs.getBinaryStream(2));
                 pr.setNombreProducto(rs.getString(3));
-                pr.setPrecio(rs.getDouble(4));
-                pr.setStock(rs.getInt(5));
-                pr.setEstado(rs.getString(6));
+                pr.setDescripcion(rs.getString(4));
+                pr.setPrecio(rs.getDouble(5));
+                pr.setStock(rs.getInt(6));
+                pr.setEstado(rs.getString(7));
                 listaProducto.add(pr);
             }
 
@@ -45,15 +46,16 @@ public class ProductoDAO {
     }
 
     public int agregar(Producto pro) {
-        String sql = "insert into Producto (fotoProducto, nombreProducto, precio, stock, estado) values(?,?,?,?,?)";
+        String sql = "insert into Producto (fotoProducto, nombreProducto, descripcion, precio, stock, estado) values(?,?,?,?,?,?)";
         try {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             ps.setBlob(1, pro.getFotoProducto());
             ps.setString(2, pro.getNombreProducto());
-            ps.setDouble(3, pro.getPrecio());
-            ps.setInt(4, pro.getStock());
-            ps.setString(5, pro.getEstado());
+            ps.setString(3, pro.getDescripcion());
+            ps.setDouble(4, pro.getPrecio());
+            ps.setInt(5, pro.getStock());
+            ps.setString(6, pro.getEstado());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,15 +85,17 @@ public class ProductoDAO {
     }
 
     public int actualizar(Producto pro) {
-        String sql = "update producto set nombreProducto = ?, precio = ?, stock = ?, estado = ? where codigoProducto = ?";
+        String sql = "update producto set fotoProducto = ?, nombreProducto = ?, descripcion = ?, precio = ?, stock = ?, estado = ? where codigoProducto = ?";
         try {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
-            ps.setString(1, pro.getNombreProducto());
-            ps.setDouble(2, pro.getPrecio());
-            ps.setInt(3, pro.getStock());
-            ps.setString(4, pro.getEstado());
-            ps.setInt(5, pro.getCodigoProducto());
+            ps.setBlob(1, pro.getFotoProducto());
+            ps.setString(2, pro.getNombreProducto());
+            ps.setString(3, pro.getDescripcion());
+            ps.setDouble(4, pro.getPrecio());
+            ps.setInt(5, pro.getStock());
+            ps.setString(6, pro.getEstado());
+            ps.setInt(7, pro.getCodigoProducto());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

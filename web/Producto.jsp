@@ -49,6 +49,10 @@
                                     <input type="text" value="${producto.getNombreProducto()}" name="txtNombreProducto" class="form-control" required> 
                                 </div>
                                 <div class="form-group">
+                                    <label>Descripcion</label>
+                                    <textarea class="form-control" name="txtDescripcion" rows="3" required></textarea>
+                                </div>
+                                <div class="form-group">
                                     <label>Precio:</label>
                                     <input type="" value="${producto.getPrecio()}" name="txtPrecio" class="form-control" required>
                                 </div>
@@ -74,9 +78,9 @@
                 <table class="table table-striped text-center table-hover">
                     <thead>
                         <tr>
-                            <td class="bg-dark text-white">Codigo</td>
-                            <td class="bg-dark text-white">Foto</td>
-                            <td class="bg-dark text-white">Nombre</td>
+                            <td class="bg-dark text-white"> </td>
+                            <td class="bg-dark text-white">Producto</td>
+                            <td class="bg-dark text-white">Descripcion</td>
                             <td class="bg-dark text-white">Precio</td>
                             <td class="bg-dark text-white">Stock</td>
                             <td class="bg-dark text-white">Estado</td>
@@ -86,9 +90,9 @@
                     <tbody>
                         <c:forEach var="producto" items="${productos}">    
                             <tr>
-                                <td>${producto.getCodigoProducto()}</td>
                                 <td><img src="ControladorIMGProd?codigoProducto=${producto.getCodigoProducto()}" height="50"></td>
                                 <td>${producto.getNombreProducto()}</td>
+                                <td>${producto.getDescripcion()}</td>
                                 <td>${producto.getPrecio()}</td>
                                 <td>${producto.getStock()}</td>
                                 <td>${producto.getEstado()}</td>
@@ -117,6 +121,10 @@
                                                             <input type="text" value="${producto.getNombreProducto()}" name="txtNombreProducto" class="form-control" required> 
                                                         </div>
                                                         <div class="form-group">
+                                                            <label>Descripcion</label>
+                                                            <textarea class="form-control"  name="txtDescripcion" rows="3" required>${producto.getDescripcion()}</textarea>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label>Precio:</label>
                                                             <input type="text" value="${producto.getPrecio()}" name="txtPrecio" class="form-control" required>
                                                         </div>
@@ -138,7 +146,7 @@
                                         </div>
                                     </div>
                                     <a class="btn btn-danger" href="Controlador?menu=Producto&accion=Eliminar&codigoProducto=${producto.getCodigoProducto()}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
                                     </a>
                                 </td>
                             </tr>

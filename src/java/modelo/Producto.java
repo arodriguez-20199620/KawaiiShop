@@ -12,6 +12,7 @@ public class Producto {
     private int codigoProducto;
     private InputStream fotoProducto;
     private String nombreProducto;
+    private String descripcion;
     private Double precio;
     private int stock;
     private String estado;
@@ -19,10 +20,11 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int codigoProducto, InputStream fotoProducto, String nombreProducto, Double precio, int stock, String estado) {
+    public Producto(int codigoProducto, InputStream fotoProducto, String nombreProducto, String descripcion, Double precio, int stock, String estado) {
         this.codigoProducto = codigoProducto;
         this.fotoProducto = fotoProducto;
         this.nombreProducto = nombreProducto;
+        this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
         this.estado = estado;
@@ -50,6 +52,14 @@ public class Producto {
 
     public void setNombreProducto(String nombreProducto) {
         this.nombreProducto = nombreProducto;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Double getPrecio() {

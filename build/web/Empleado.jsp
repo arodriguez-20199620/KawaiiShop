@@ -73,7 +73,6 @@
                                 </div>
                             </div>
                             <div class="modal-footer modal-div">
-                                <input type="submit" name="accion" value="Agregar" class="btn btn-outline-primary">
                                 <input type="submit" name="accion" value="Agregar" class="btn btn-success">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             </div>
@@ -118,7 +117,8 @@
                                 <div class="modal fade" id="editarModal${empleado.getCodigoEmpleado()}" tabindex="-1" aria-labelledby="editarModalLabel${empleado.getCodigoEmpleado()}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form action="Controlador?menu=Empleado&codigoEmpleado=${empleado.getCodigoEmpleado()}" method="POST" autocomplete="off" >
+
+                                            <form action="Controlador?menu=Empleado&codigoEmpleado=${empleado.getCodigoEmpleado()}" method="POST" enctype="multipart/form-data" autocomplete="off" >
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Editar empleado</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -128,22 +128,37 @@
                                                         <label>DPI:</label>
                                                         <input type="text" value="${empleado.getDPIEmpleado()}" name="txtDPIEmpleado" class="form-control" required>
                                                     </div>
-
+                                                    <div class="form-group">
+                                                        <label>Foto:</label>
+                                                        <input type="file" value="${empleado.getFotoPerfil()}" name="foto" class="form-control">
+                                                    </div>
                                                     <div class="form-group">
                                                         <label>Nombre:</label>
                                                         <input type="text" value="${empleado.getNombresEmpleado()}" name="txtNombreEmpleado" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Telefono:</label>
-                                                        <input type="text" value="${empleado.getTelefonoEmpleado()}"  name="txtTelefono" class="form-control" required>
+                                                        <input type="text" value="${empleado.getTelefonoEmpleado()}" name="txtTelefono" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Estado</label>
                                                         <input type="text" value="${empleado.getEstado()}" name="txtEstado" class="form-control" required>
-                                                    </div>
+                                                    </div> 
                                                     <div class="form-group">
                                                         <label>Usuario</label>
                                                         <input type="text" value="${empleado.getUsuario()}" name="txtUsuario" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Correo electronico:</label>
+                                                        <input type="text" value="${empleado.getCorreo()}" name="txtCorreo" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Roles</label>
+                                                        <select value="${empleado.getRol()}" name="cbRoles" class="form-control">
+                                                            <option value=""></option>
+                                                            <option value="Administrador">Administrador</option>
+                                                            <option value="Miembro  ">Miembro</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer modal-div">

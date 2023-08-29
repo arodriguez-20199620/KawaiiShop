@@ -26,7 +26,7 @@
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form action="Controlador?menu=Cliente" method="POST" autocomplete="off">
+                        <form action="Controlador?menu=Cliente" method="POST" enctype="multipart/form-data" autocomplete="off">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar cliente</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -35,6 +35,10 @@
                                 <div class="form-group">
                                     <label>DPI:</label>
                                     <input type="text" value="${cliente.getDPICliente()}" name="txtDPICliente" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Foto:</label>
+                                    <input type="file" value="${cliente.getFotoPerfil()}" name="foto" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre:</label>
@@ -47,6 +51,14 @@
                                 <div class="form-group">
                                     <label>Estado</label>
                                     <input type="text" value="${cliente.getEstado()}" name="txtEstado" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Usuario</label>
+                                    <input type="text" value="${cliente.getUsuario()}" name="txtUsuario" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Correo electronico:</label>
+                                    <input type="text" value="${cliente.getCorreo()}" name="txtCorreo" class="form-control" required>
                                 </div>
                             </div>
                             <div class="modal-footer modal-div">
@@ -90,7 +102,7 @@
                                     <div class="modal fade" id="editarModal${cliente.getCodigoCliente()}" tabindex="-1" aria-labelledby="editarModalLabel${cliente.getCodigoCliente()}" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form action="Controlador?menu=Cliente&codigoCliente=${cliente.getCodigoCliente()}" method="POST" autocomplete="off" >
+                                                <form action="Controlador?menu=Cliente&codigoCliente=${cliente.getCodigoCliente()}" method="POST" enctype="multipart/form-data" autocomplete="off" >
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Editar cliente</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -99,6 +111,10 @@
                                                         <div class="form-group">
                                                             <label>DPI:</label>
                                                             <input type="text" value="${cliente.getDPICliente()}" name="txtDPICliente" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Foto:</label>
+                                                            <input type="file" value="${cliente.getFotoPerfil()}" name="foto" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Nombre:</label>
@@ -111,6 +127,14 @@
                                                         <div class="form-group">
                                                             <label>Estado</label>
                                                             <input type="text" value="${cliente.getEstado()}" name="txtEstado" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Usuario</label>
+                                                            <input type="text" value="${cliente.getUsuario()}" name="txtUsuario" class="form-control" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Correo electronico:</label>
+                                                            <input type="text" value="${cliente.getCorreo()}" name="txtCorreo" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer modal-div">

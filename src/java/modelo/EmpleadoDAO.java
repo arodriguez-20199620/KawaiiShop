@@ -122,16 +122,19 @@ public class EmpleadoDAO {
 
     // Metodo EDITAR
     public int actualizar(Empleado emp) {
-        String sql = "update empleado set DPIEmpleado = ?, nombresEmpleado = ?, telefonoEmpleado = ?, estado = ?, usuario = ? where codigoEmpleado = ?";
+        String sql = "update empleado set DPIEmpleado = ?, fotoPerfil = ?, nombresEmpleado = ?, telefonoEmpleado = ?, estado = ?, usuario = ?, correo = ?, rol = ? where codigoEmpleado = ?";
         try {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             ps.setString(1, emp.getDPIEmpleado());
-            ps.setString(2, emp.getNombresEmpleado());
-            ps.setString(3, emp.getTelefonoEmpleado());
-            ps.setString(4, emp.getEstado());
-            ps.setString(5, emp.getUsuario());
-            ps.setInt(6, emp.getCodigoEmpleado());
+            ps.setBlob(2, emp.getFotoPerfil());
+            ps.setString(3, emp.getNombresEmpleado());
+            ps.setString(4, emp.getTelefonoEmpleado());
+            ps.setString(5, emp.getEstado());
+            ps.setString(6, emp.getUsuario());
+            ps.setString(7, emp.getCorreo());
+            ps.setString(8, emp.getRol());
+            ps.setInt(9, emp.getCodigoEmpleado());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

@@ -105,15 +105,18 @@ public class ClienteDAO {
     }
 
     public int actualizar(Cliente cl) {
-        String sql = "update Cliente set DPICliente = ?, nombresCliente = ?, direccionCliente = ?, estado = ? where codigoCliente = ?";
+        String sql = "update Cliente set DPICliente = ?, fotoPerfil = ?, nombresCliente = ?, direccionCliente = ?, estado = ?, usuario = ?, correo = ? where codigoCliente = ?";
         try {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             ps.setString(1, cl.getDPICliente());
-            ps.setString(2, cl.getNombresCliente());
-            ps.setString(3, cl.getDireccionCliente());
-            ps.setString(4, cl.getEstado());
-            ps.setInt(5, cl.getCodigoCliente());
+            ps.setBlob(2, cl.getFotoPerfil());
+            ps.setString(3, cl.getNombresCliente());
+            ps.setString(4, cl.getDireccionCliente());
+            ps.setString(5, cl.getEstado());
+            ps.setString(6, cl.getUsuario());
+            ps.setString(7, cl.getCorreo());
+            ps.setInt(8, cl.getCodigoCliente());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
