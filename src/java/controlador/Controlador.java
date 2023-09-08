@@ -7,7 +7,7 @@ package controlador;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -16,9 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.ClienteDAO;
+import modelo.Compra;
+import modelo.CompraDAO;
 import modelo.Empleado;
 import modelo.EmpleadoDAO;
 import modelo.Producto;
@@ -34,8 +35,11 @@ public class Controlador extends HttpServlet {
     ProductoDAO productoDAO = new ProductoDAO();
     Cliente cliente = new Cliente();
     ClienteDAO clienteDAO = new ClienteDAO();
+    Compra compra = new Compra();
+    CompraDAO compraDAO = new CompraDAO();
     Venta venta = new Venta();
     List<Venta> lista = new ArrayList<>();
+    List<Compra> listaCompras = new ArrayList<>();
     int item;
     int codPro, cantida;
     String descripcion;
@@ -44,9 +48,12 @@ public class Controlador extends HttpServlet {
     int codEmpleado;
     int codProducto;
     int codCliente;
-
     Part part;
     InputStream foto;
+    int cantidad = 1;
+    public static String user = controlador.Controlador.user;
+    public static String pass = controlador.Controlador.pass;
+    static int numeroSerie = 0;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -232,7 +239,18 @@ public class Controlador extends HttpServlet {
                     List listaProducto = productoDAO.listar();
                     request.setAttribute("productos", listaProducto);
                     request.getRequestDispatcher("Catalogo.jsp").forward(request, response);
-
+                    break;
+                case "carrito":
+                    int id = clienteDAO.validar(user, pass).getCodigoCliente();
+                    producto = productoDAO.listarCodigoProducto(Integer.parseInt(request.getParameter("codigoProducto")));
+                    compra.setCodigoProducto(producto.getCodigoProducto());
+                    compra.setCodigoCliente(id);
+                    compra.setCantidadProductos(cantidad);
+                    compra.setFechaCompra(LocalDate.now().toString());
+                    compra.setTotalPagar(cantidad * producto.getPrecio());
+                    compra.setNumeroSerie(numeroSerie);
+                    listaCompras.add(compra);
+                    request.getRequestDispatcher("Controlador?menu=Catalogo&accion=listar").forward(request, response);
                     break;
             }
 

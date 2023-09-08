@@ -45,6 +45,28 @@ public class ProductoDAO {
         return listaProducto;
     }
 
+    public Producto listarCodigoProducto(int id) {
+        Producto pro = new Producto();
+        String sql = "select * from producto where codigoProducto = " + id;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery(sql);
+            while (rs.next()) {
+                pro.setCodigoProducto(rs.getInt(1));
+                pro.setFotoProducto(rs.getAsciiStream(2));
+                pro.setNombreProducto(rs.getString(3));
+                pro.setDescripcion(rs.getString(4));
+                pro.setPrecio(rs.getDouble(5));
+                pro.setStock(rs.getInt(6));
+                pro.setEstado(rs.getString(7));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pro;
+    }
+
     public int agregar(Producto pro) {
         String sql = "insert into Producto (fotoProducto, nombreProducto, descripcion, precio, stock, estado) values(?,?,?,?,?,?)";
         try {
@@ -62,26 +84,6 @@ public class ProductoDAO {
             System.out.println("No se pudo agregar el registro");
         }
         return resp;
-    }
-
-    public Producto listarCodigoProducto(int id) {
-        Producto pro = new Producto();
-        String sql = "select * from producto where codigoProducto = " + id;
-        try {
-            con = cn.Conexion();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery(sql);
-            while (rs.next()) {
-                pro.setCodigoProducto(rs.getInt(1));
-                pro.setNombreProducto(rs.getString(2));
-                pro.setPrecio(rs.getDouble(3));
-                pro.setStock(rs.getInt(4));
-                pro.setEstado(rs.getString(5));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return pro;
     }
 
     public int actualizar(Producto pro) {

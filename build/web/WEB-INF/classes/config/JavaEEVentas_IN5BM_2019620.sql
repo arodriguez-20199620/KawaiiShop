@@ -62,6 +62,7 @@ create table Compra(
     cantidadProductos int not null,
     fechaCompra datetime not null,
     totalPagar double not null,
+	numeroSerie bigint not null,
     primary key PK_codigoCompra(codigoCompra),
     constraint FK_Compra_Cliente foreign key (codigoCliente)
         references Cliente(codigoCliente)  on delete cascade,
@@ -97,7 +98,30 @@ Create table DetalleVenta(
         references Venta(codigoVenta)  on delete cascade
 );
 
- 
+SELECT C.codigoCliente, C.numeroSerie, COUNT(C.codigoCompra) AS totalCompras
+FROM Compra AS C
+GROUP BY C.codigoCliente, C.numeroSerie
+ORDER BY C.codigoCliente, C.numeroSerie;
+
+SELECT codigoCliente, numeroSerie, fechaCompra, totalPagar
+FROM Compra
+ORDER BY codigoCliente, numeroSerie;
+
+Select c.codigoCompra, p.fotoProducto, p.nombreProducto, cl.nombresCliente, c.cantidadProductos, c.fechaCompra, c.totalPagar, numeroSerie from Compra c 
+	inner join Cliente cl on c.codigoCliente = cl.codigoCliente
+    inner join Producto p on c.codigoProducto = p.codigoProducto 
+	where c.codigoCliente = 1 order by c.codigoCliente, c.numeroSerie;    
+
+
+insert into Compra(codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar, numeroSerie)
+	value(1, 1, 5, now(), 100, 123);
+insert into Compra(codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar, numeroSerie)
+	value(2, 1, 5, now(), 100, 123);
+
+insert into Compra(codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar, numeroSerie)
+	value(1, 1, 5, now(), 100, 5);
+insert into Compra(codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar, numeroSerie)
+	value(2, 1, 5, now(), 100, 5);
 
 -- insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579420230101', 'Pedro Armas', 'Mixco, Guatemala', '1', 'parmas', 'parmas@kinal.edu.gt');
 -- insert into Cliente (DPICliente, nombresCliente, direccionCliente, estado, usuario, correo) values ('1579123450108', 'Luis Olmedo', 'Guatemala, Guatemala', '1', 'lolmedo', 'lolmedo@kinal.edu.gt');
@@ -115,6 +139,8 @@ select * from Cliente;
 
 
 select * from Empleado;
+
+use JavaEEVentas_IN5BM_2019620;
 
  
 
@@ -146,5 +172,5 @@ select * from Cliente;
 select * from Empleado where usuario = 'arodriguez' and DPIEmpleado = '123';
 
 update Empleado
-	set correo = 'arodriguez@kinal.org.gt'
-	where codigoEmpleado = 6;
+	set correo = 'arodriguez-2019629@kinal.org.gt'
+	where codigoEmpleado = 1;

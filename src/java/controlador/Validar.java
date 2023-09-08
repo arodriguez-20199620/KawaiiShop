@@ -26,6 +26,7 @@ public class Validar extends HttpServlet {
     EmpleadoDAO empleadoDAO = new EmpleadoDAO();
     Cliente cliente = new Cliente();
     ClienteDAO clienteDAO = new ClienteDAO();
+    public static String user, pass;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -87,8 +88,8 @@ public class Validar extends HttpServlet {
         String accion = request.getParameter("accion");
         if (accion.equalsIgnoreCase("Ingresar")) {
             // capturar el usuario y la contraseña
-            String user = request.getParameter("txtUser");
-            String pass = request.getParameter("txtPass");
+            user = request.getParameter("txtUser");
+            pass = request.getParameter("txtPass");
 
             if (user.contains("@kinal.edu.gt")) {
                 cliente = clienteDAO.validar(user, pass);

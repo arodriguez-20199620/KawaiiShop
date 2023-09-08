@@ -12,66 +12,61 @@
         <title>JSP Page</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/2833bb8570.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="container mt-4">  
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="container-fluid px-5">  
+            <h1 class="mb-5">Catalogo</h1>
+            <div class="row">
                 <c:forEach var="producto" items="${productos}">    
-                    <div class="card mx-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4 mt-3">
-                                <img src="ControladorIMGProd?codigoProducto=${producto.getCodigoProducto()}" class="img-fluid rounded-start" alt="...">
-                                <button class="btn btn-primary mt-3" href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M48 0C21.5 0 0 21.5 0 48V368c0 26.5 21.5 48 48 48H64c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H48zM416 160h50.7L544 237.3V256H416V160zM112 416a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm368-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-                                    Agregar
-                                </button>
-
-                                <p class="card-text fw-bold mt-3"> Cantidad</p>
-                                <input class="form-control"type="number" name="cantidad" min="1" value="1"/>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">${producto.getNombreProducto()}</h5>
-                                    <p class="card-text">${producto.getDescripcion()}</p>
-                                    <p class="card-text fw-bold"><small class="text-body-secondary">Precio: Q${producto.getPrecio()}</small></p>
-                                </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#detalles${producto.getCodigoProducto()}"><img class="card-img-top" src="ControladorIMGProd?codigoProducto=${producto.getCodigoProducto()}" height="400" alt=""></a>
+                            <div class="card-body text-center">
+                                <h3 class="card-title">${producto.getNombreProducto()}</h3>
+                                <p class="card-text fs-5">Precio: Q.${producto.getPrecio()}</p>
                             </div>
                         </div>
                     </div>
-                </c:forEach>
-                <!--
-                <c:forEach var="producto" items="${productos}">    
-                    <div class="col">
-                        <div class="card" style="width: 350px;">
-                            <img src="ControladorIMGProd?codigoProducto=${producto.getCodigoProducto()}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">${producto.getNombreProducto()}</h5>
-                                <p class="card-text">${producto.getDescripcion()}</p>
-                                <div class="clearfix">
-                                    <p class="card-text float-start">Precio: Q${producto.getPrecio()}</p>
-                                    <p class="card-text float-end">Disponible ${producto.getStock()}</p>
+
+                    <div class="modal fade" id="detalles${producto.getCodigoProducto()}" tabindex="-1" aria-labelledby="detallesLabel${producto.getCodigoProducto()}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                            </div>
-                            <div class="card-footer">
-                                <form action="Controlador?menu">
+                                <div class="modal-body">
                                     <div class="row">
-                                        <div class="col">
-                                            <input class="form-control float-end"type="number" name="cantidad" min="1" value="1"/>
+                                        <div class="col-4">
+                                            <img class="border border-dark rounded"src="ControladorIMGProd?codigoProducto=${producto.getCodigoProducto()}" height="300" alt="">
                                         </div>
-                                        <div class="col">
-                                            <button class="btn btn-primary float-start" href="">
-                                                
-                                                Agregar
-                                            </button>
+                                        <div class="col-8 my-auto">
+                                            <h1>${producto.getNombreProducto()}</h1>
+                                            <div class="col">
+                                                <h3 class="text-success">Q${producto.getPrecio()}</h3>
+                                                <p class="fs-6">${producto.getDescripcion()}</p>
+                                                <div class="row align-items-start text-center">
+                                                    <div class="col">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                <div class="fw-bold">Disponibilidad</div>
+                                                                <span class="badge bg-primary rounded-pill">${producto.getStock()}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>  
+                                                    <div class="col">
+                                                        <a class="btn btn-dark shadow-lg" href="Controlador?menu=Catalogo&accion=carrito&codigoProducto=${producto.getCodigoProducto()}"><i class="fa-solid fa-truck" style="color: #ffffff;"></i> Agregar al carrito</a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
+                        </div
                     </div>
-                </c:forEach>
-                -->
-            </div>
-        </div>
+                </div>
+            </c:forEach>
     </body>
 </html>

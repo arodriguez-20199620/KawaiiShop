@@ -13,37 +13,56 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     </head>
     <body>
-        <div class="container mt-3">
-            <table class="table">
-                <thead class="table-light">
-                    <tr>
-                        <td> </td>
-                        <td>Producto</td>
-                        <td>Precio</td>
-                        <td>Cantidad</td>
-                        <td>SubTotal</td>
-                        <td>Acciones</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="img/Mangas/ChainsawManVol1.jpg" height="100"></td>
-                        <td>Chainsaw man vol.01</td>
-                        <td>Q100.0</td>
-                        <td>1</td>
-                        <td>Q100.0</td>
-                        <td><a class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></a></td>
-                    </tr>
-                    <tr>
-                        <td><img src="img/Mangas/Zom100Vol1.jpg" height="100"></td>
-                        <td>Zom 100 Vol. 1</td>
-                        <td>Q100.0</td>
-                        <td>1</td>
-                        <td>Q100.0</td>
-                        <td><a class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></a></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="container-fluid mt-3">
+            <div class="row gx-3">  
+                <div class="col-8">
+                    <table class="table aling-middle table-striped text-center table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <td>Editorial</td>
+                                <td class="col-sm-5">Descripcion</td>
+                                <td>Acciones</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>                            
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm" href="Controlador?menu=Editorial&accion=Eliminar&codigoEditorial=${e.getIdEditorial()}"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-4">
+                <!-- FORMUlARIO PARA AGREGAR -->
+                <form action="Controlador?menu=Editorial" method="POST" autocomplete="off">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h5>Agregar editorial</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-floating my-3">
+                                <input type="text" class="form-control form-control-sm" id="floatingInput" name="txtEditorial" required>
+                                <label for="floatingInput">Editorial</label>
+                            </div>
+                            <div class="form-floating my-3">
+                                <textarea class="form-control" name="txtDescripcion" id="floatingTextarea" style="height: 150px" required="on"></textarea>
+                                <label for="floatingTextarea">Descripcion</label>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" name="accion" value="Agregar" class="btn btn-success mx-2">Agregar</button>
+                                <button type="reset" name="accion" value="Cancelar" class="btn btn-secondary">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
         </div>
-    </body>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
 </html>
