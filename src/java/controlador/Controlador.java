@@ -7,6 +7,7 @@ package controlador;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import modelo.EmpleadoDAO;
 import modelo.Producto;
 import modelo.ProductoDAO;
 import modelo.Venta;
+import modelo.VentaDAO;
 
 @MultipartConfig
 public class Controlador extends HttpServlet {
@@ -40,12 +42,14 @@ public class Controlador extends HttpServlet {
     Venta venta = new Venta();
     List<Venta> lista = new ArrayList<>();
     List<Compra> listaCompras = new ArrayList<>();
-    int item;
-    int codPro, cantida;
+    int item = 0;
+    VentaDAO ventaDAO = new VentaDAO();
+    DecimalFormat dosDecimales = new DecimalFormat("#.##");
+    String numeroSerie;
+    int codPro, canti;
     String descripcion;
     Double precio, subTotal;
     Double totalPagar;
-    int codEmpleado;
     int codProducto;
     int codCliente;
     Part part;
@@ -53,7 +57,7 @@ public class Controlador extends HttpServlet {
     int cantidad = 1;
     public static String user = controlador.Controlador.user;
     public static String pass = controlador.Controlador.pass;
-    static int numeroSerie = 0;
+    static int codEmpleado;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -220,20 +224,96 @@ public class Controlador extends HttpServlet {
                     cliente.setDPICliente(dpi);
                     cliente = clienteDAO.buscar(dpi);
                     request.setAttribute("cliente", cliente);
+                    break;
+
+                case "BuscarProducto":
+                    int id = Integer.parseInt(request.getParameter("txtCodigoProducto"));
+                    producto.setCodigoProducto(id);
+                    producto = productoDAO.listarCodigoProducto(id);
+                    request.setAttribute("cliente", cliente);
+                    request.setAttribute("producto", producto);
+                    request.setAttribute("totalPagar", totalPagar);
+                    request.setAttribute("lista", lista);
+                    break;
+
+                case "Eliminar":
+                    codPro = Integer.parseInt(request.getParameter("codigoProducto"));
+                    for (Venta venta : lista) {
+                        if (venta.getCodigoProducto() == codPro) {
+                            lista.remove(venta);
+                            break;
+                        }
+                    }
+                    request.setAttribute("lista", lista);
+                    break;
+
+                case "AgregarVenta":
+                    request.setAttribute("cliente", cliente);
+                    totalPagar = 0.0;
+                    item = item + 1;
+                    codPro = producto.getCodigoProducto();
+                    descripcion = request.getParameter("txtNombreProducto");
+                    precio = Double.parseDouble(request.getParameter("txtPrecio"));
+                    canti = Integer.parseInt(request.getParameter("txtCantidad"));
+                    subTotal = precio * canti;
+                    venta = new Venta();
+                    venta.setItem(item);
+                    venta.setCodigoProducto(codPro);
+                    venta.setDescripcionProd(descripcion);
+                    venta.setPrecio(precio);
+                    venta.setCantidad(canti);
+                    venta.setSubTotal(subTotal);
+                    lista.add(venta);
+                    for (int i = 0; i < lista.size(); i++) {
+                        totalPagar = totalPagar + lista.get(i).getSubTotal();
+                    }
+                    request.setAttribute("totalPagar", totalPagar);
+                    request.setAttribute("lista", lista);
+                    request.setAttribute("numeroSerie", numeroSerie);
 
                     break;
-                case "BuscarProducto":
-                    codProducto = Integer.parseInt(request.getParameter("txtCodigoProducto"));
-                    producto.setCodigoProducto(codProducto);
-                    producto = productoDAO.listarCodigoProducto(codProducto);
-                    request.setAttribute("producto", producto);
-                    request.getRequestDispatcher("Controlador?menu=RegistrarVenta&accion=BuscarCliente").forward(request, response);
+
+                case "GenerarVenta":
+                    venta.setCodigoCliente(cliente.getCodigoCliente());
+                    venta.setCodigoEmpleado(1);
+                    numeroSerie = ventaDAO.generarSerie();
+                    venta.setNumeroSerie(numeroSerie);
+                    venta.setFecha("2023-09-12");
+                    venta.setMonto(totalPagar);
+                    venta.setEstado("1");
+                    ventaDAO.guardarVenta(venta);
+                    int idv = ventaDAO.idVenta();
+                    //Guardar Detalle Venta
+                    for (int i = 0; i < lista.size(); i++) {
+                        venta = new Venta();
+                        venta.setCodigoVenta(idv);
+                        venta.setCodigoProducto(lista.get(i).getCodigoProducto());
+                        venta.setCantidad(lista.get(i).getCantidad());
+                        venta.setPrecio(lista.get(i).getPrecio());
+                        ventaDAO.guardarDetalleVenta(venta);
+                    }
+                    numeroSerie = ventaDAO.generarSerie();
+                    request.setAttribute("numeroSerie", numeroSerie);
+                    lista.clear();
                     break;
+
+                default:
+                    numeroSerie = ventaDAO.generarSerie();
+                    if (numeroSerie == null) {
+                        numeroSerie = "00000001";
+                        request.setAttribute("numeroSerie", numeroSerie);
+                    } else {
+                        request.setAttribute("numeroSerie", numeroSerie);
+                    }
+
             }
             request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
-        } else if (menu.equals("Home")) {
+
+        } else if (menu.equals(
+                "Home")) {
             request.getRequestDispatcher("Home.jsp").forward(request, response);
-        } else if (menu.equals("Catalogo")) {
+        } else if (menu.equals(
+                "Catalogo")) {
             switch (accion) {
                 case "listar":
                     List listaProducto = productoDAO.listar();
@@ -244,22 +324,28 @@ public class Controlador extends HttpServlet {
                     int id = clienteDAO.validar(user, pass).getCodigoCliente();
                     producto = productoDAO.listarCodigoProducto(Integer.parseInt(request.getParameter("codigoProducto")));
                     compra.setCodigoProducto(producto.getCodigoProducto());
+                    compra.setNombreProducto(producto.getNombreProducto());
                     compra.setCodigoCliente(id);
                     compra.setCantidadProductos(cantidad);
                     compra.setFechaCompra(LocalDate.now().toString());
                     compra.setTotalPagar(cantidad * producto.getPrecio());
-                    compra.setNumeroSerie(numeroSerie);
                     listaCompras.add(compra);
                     request.getRequestDispatcher("Controlador?menu=Catalogo&accion=listar").forward(request, response);
                     break;
             }
 
-        } else if (menu.equals("Carrito")) {
-            request.getRequestDispatcher("Carrito.jsp").forward(request, response);
+        } else if (menu.equals(
+                "Carrito")) {
+            switch (accion) {
+                case "listar":
+                    request.setAttribute("carrito", listaCompras);
+                    request.getRequestDispatcher("Carrito.jsp").forward(request, response);
+                    break;
+            }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -25,7 +25,7 @@ public class CompraDAO {
     int resp;
 
     public List listar() {
-        String sql = "Select c.codigoCompra, p.fotoProducto, p.nombreProducto, cl.nombresCliente, c.cantidadProductos, c.fechaCompra, c.totalPagar, numeroSerie from Compra c"
+        String sql = "Select c.codigoCompra, p.fotoProducto, p.nombreProducto, p.precio, cl.nombresCliente, c.cantidadProductos, c.fechaCompra, c.totalPagar, numeroSerie from Compra c"
                 + " inner join Cliente cl on c.codigoCliente = cl.codigoCliente"
                 + " inner join Producto p on c.codigoProducto = p.codigoProducto;";
         List<Compra> listadoCompra = new ArrayList<>();
@@ -38,10 +38,12 @@ public class CompraDAO {
                 c.setCodigoCompra(rs.getInt(1));
                 c.setFotoProducto(rs.getBinaryStream(2));
                 c.setNombreProducto(rs.getString(3));
-                c.setNombresCliente(rs.getString(4));
-                c.setCantidadProductos(rs.getInt(5));
-                c.setFechaCompra(rs.getString(6));
-                c.setTotalPagar(rs.getDouble(7));
+                c.setPrecio(rs.getDouble(4));
+                c.setNombresCliente(rs.getString(5));
+                c.setCantidadProductos(rs.getInt(6));
+                c.setFechaCompra(rs.getString(7));
+                c.setTotalPagar(rs.getDouble(8));
+                c.setNumeroSerie(rs.getLong(9));
                 listadoCompra.add(c);
             }
         } catch (Exception e) {

@@ -1,20 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo;
 
-/**
- *
- * @author Admin
- */
 public class Venta {
-
+    // Agregar los Atributos
+    
     private int codigoVenta;
     private int item;
     private int codigoCliente;
     private int codigoEmpleado;
+    private int codigoProducto;
     private String numeroSerie;
     private String descripcionProd;
     private String fecha;
@@ -27,11 +21,12 @@ public class Venta {
     public Venta() {
     }
 
-    public Venta(int codigoVenta, int item, int codigoCliente, int codigoEmpleado, String numeroSerie, String descripcionProd, String fecha, Double precio, int cantidad, Double subTotal, Double monto, String estado) {
+    public Venta(int codigoVenta, int item, int codigoCliente, int codigoEmpleado, int codigoProducto, String numeroSerie, String descripcionProd, String fecha, Double precio, int cantidad, Double subTotal, Double monto, String estado) {
         this.codigoVenta = codigoVenta;
         this.item = item;
         this.codigoCliente = codigoCliente;
         this.codigoEmpleado = codigoEmpleado;
+        this.codigoProducto = codigoProducto;
         this.numeroSerie = numeroSerie;
         this.descripcionProd = descripcionProd;
         this.fecha = fecha;
@@ -39,14 +34,6 @@ public class Venta {
         this.cantidad = cantidad;
         this.subTotal = subTotal;
         this.monto = monto;
-        this.estado = estado;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -80,6 +67,14 @@ public class Venta {
 
     public void setCodigoEmpleado(int codigoEmpleado) {
         this.codigoEmpleado = codigoEmpleado;
+    }
+
+    public int getCodigoProducto() {
+        return codigoProducto;
+    }
+
+    public void setCodigoProducto(int codigoProducto) {
+        this.codigoProducto = codigoProducto;
     }
 
     public String getNumeroSerie() {
@@ -137,5 +132,15 @@ public class Venta {
     public void setMonto(Double monto) {
         this.monto = monto;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    
 
 }

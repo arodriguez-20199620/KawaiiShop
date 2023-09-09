@@ -15,54 +15,61 @@
     <body>
         <div class="container-fluid mt-3">
             <div class="row gx-3">  
-                <div class="col-8">
+                <div class="col-9">
                     <table class="table aling-middle table-striped text-center table-hover">
                         <thead class="table-dark">
                             <tr>
-                                <td>Editorial</td>
-                                <td class="col-sm-5">Descripcion</td>
+                                <td> </td>
+                                <td>Producto</td>
+                                <td>Precio unitario</td> 
+                                <td>Cantidad</td> 
                                 <td>Acciones</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>                            
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <a class="btn btn-danger btn-sm" href="Controlador?menu=Editorial&accion=Eliminar&codigoEditorial=${e.getIdEditorial()}"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-4">
-                <!-- FORMUlARIO PARA AGREGAR -->
-                <form action="Controlador?menu=Editorial" method="POST" autocomplete="off">
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <h5>Agregar editorial</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-floating my-3">
-                                <input type="text" class="form-control form-control-sm" id="floatingInput" name="txtEditorial" required>
-                                <label for="floatingInput">Editorial</label>
+                            <c:forEach var="c" items="${carrito}">
+                                <tr>                            
+                                    <td><img src="" height="50" alt=" "></td>
+                                    <td>${c.getCodigoCompra()}</td>
+                                    <td></td>
+                                    <td class="col-2">
+                                        <input type="number" name="txtCantidad" class="form-control text-center">
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger btn-sm" href="Controlador?menu=Editorial&accion=Eliminar&codigoEditorial=${e.getIdEditorial()}"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-3">
+                    <!-- FORMUlARIO PARA AGREGAR -->
+                    <form action="Controlador?menu=Carrito" method="POST" autocomplete="off">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h5>TOTAL DEL CARRITO</h5>
                             </div>
-                            <div class="form-floating my-3">
-                                <textarea class="form-control" name="txtDescripcion" id="floatingTextarea" style="height: 150px" required="on"></textarea>
-                                <label for="floatingTextarea">Descripcion</label>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" name="accion" value="Agregar" class="btn btn-success mx-2">Agregar</button>
-                                <button type="reset" name="accion" value="Cancelar" class="btn btn-secondary">Cancelar</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                            <div class="card-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Cantida productos</span>
+                                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" readonly>
+                                </div>
 
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Total</span>
+                                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" readonly>
+                                </div>
+                                <div class="card-footer text-end">
+                                    <a class="btn btn-primary ms-auto">Comprar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    </body>
 </html>

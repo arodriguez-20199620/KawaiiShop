@@ -75,9 +75,12 @@ public class ClienteDAO {
             while (rs.next()) {
                 cl.setCodigoCliente(rs.getInt(1));
                 cl.setDPICliente(rs.getString(2));
-                cl.setNombresCliente(rs.getString(3));
-                cl.setDireccionCliente(rs.getString(4));
-                cl.setEstado(rs.getString(5));
+                cl.setFotoPerfil(rs.getBinaryStream(3));
+                cl.setNombresCliente(rs.getString(4));
+                cl.setDireccionCliente(rs.getString(5));
+                cl.setEstado(rs.getString(6));
+                cl.setUsuario(rs.getString(7));
+                cl.setCorreo(rs.getString(8));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,10 +96,14 @@ public class ClienteDAO {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery(sql);
             while (rs.next()) {
+                cl.setCodigoCliente(rs.getInt(1));
                 cl.setDPICliente(rs.getString(2));
-                cl.setNombresCliente(rs.getString(3));
-                cl.setDireccionCliente(rs.getString(4));
-                cl.setEstado(rs.getString(5));
+                cl.setFotoPerfil(rs.getBinaryStream(3));
+                cl.setNombresCliente(rs.getString(4));
+                cl.setDireccionCliente(rs.getString(5));
+                cl.setEstado(rs.getString(6));
+                cl.setUsuario(rs.getString(7));
+                cl.setCorreo(rs.getString(8));
             }
         } catch (Exception e) {
             e.printStackTrace();

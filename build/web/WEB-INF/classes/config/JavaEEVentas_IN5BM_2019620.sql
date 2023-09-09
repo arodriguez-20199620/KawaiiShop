@@ -70,6 +70,7 @@ create table Compra(
         references Producto(codigoProducto)  on delete cascade
 );
 
+
 Create table Venta(
     codigoVenta int auto_increment not null,
     numeroSerie varchar(55) not null,
@@ -84,7 +85,7 @@ Create table Venta(
      constraint FK_Venta_Empleado foreign key (codigoEmpleado)
         references Empleado(codigoEmpleado) on delete cascade
 );
-
+Select * from Venta;
 Create table DetalleVenta(
     codigoDetalleVenta int auto_increment not null,
     cantidad int not null,
@@ -107,13 +108,14 @@ SELECT codigoCliente, numeroSerie, fechaCompra, totalPagar
 FROM Compra
 ORDER BY codigoCliente, numeroSerie;
 
-Select c.codigoCompra, p.fotoProducto, p.nombreProducto, cl.nombresCliente, c.cantidadProductos, c.fechaCompra, c.totalPagar, numeroSerie from Compra c 
+Select c.codigoCompra, p.fotoProducto, p.nombreProducto, p.precio, cl.nombresCliente, c.cantidadProductos, c.fechaCompra, c.totalPagar, numeroSerie from Compra c 
 	inner join Cliente cl on c.codigoCliente = cl.codigoCliente
     inner join Producto p on c.codigoProducto = p.codigoProducto 
 	where c.codigoCliente = 1 order by c.codigoCliente, c.numeroSerie;    
 
+select * from Producto;
 
-insert into Compra(codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar, numeroSerie)
+	insert into Compra(codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar, numeroSerie)
 	value(1, 1, 5, now(), 100, 123);
 insert into Compra(codigoProducto, codigoCliente, cantidadProductos, fechaCompra, totalPagar, numeroSerie)
 	value(2, 1, 5, now(), 100, 123);

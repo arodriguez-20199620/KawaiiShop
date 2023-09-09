@@ -25,11 +25,12 @@ public class Compra {
     private InputStream fotoProducto;
     private String nombreProducto;
     private String nombresCliente;
+    private double precio;
 
     public Compra() {
     }
 
-    public Compra(int codigoCompra, int codigoProducto, int codigoCliente, int cantidadProductos, String fechaCompra, double totalPagar, long numeroSerie, InputStream fotoProducto, String nombreProducto, String nombresCliente) {
+    public Compra(int codigoCompra, int codigoProducto, int codigoCliente, int cantidadProductos, String fechaCompra, double totalPagar, long numeroSerie, InputStream fotoProducto, String nombreProducto, String nombresCliente, double precio) {
         this.codigoCompra = codigoCompra;
         this.codigoProducto = codigoProducto;
         this.codigoCliente = codigoCliente;
@@ -40,6 +41,7 @@ public class Compra {
         this.fotoProducto = fotoProducto;
         this.nombreProducto = nombreProducto;
         this.nombresCliente = nombresCliente;
+        this.precio = precio;
     }
 
     public int getCodigoCompra() {
@@ -120,6 +122,14 @@ public class Compra {
 
     public void setNombresCliente(String nombresCliente) {
         this.nombresCliente = nombresCliente;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
 }
